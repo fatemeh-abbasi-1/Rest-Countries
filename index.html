@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rest countries</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <div class="header">
+        <h2>Where in the world?</h2>
+        <p>🌙Dark mode</p>
+      </div>
+    </header>
+    <!-- main -->
+    <main>
+      <div class="user-access">
+        <input
+          type="text"
+          placeholder="🔍 search for a country"
+          class="input-search"
+        />
+
+        <div class="fillter-sort">
+          <div id="sort-container">
+            <p class="title-access-sort">Sort By</p>
+            <ul class="sort hidden">
+              <li class="sort-option">Name</li>
+              <li class="sort-option">Population</li>
+              <li class="sort-option">Area</li>
+            </ul>
+          </div>
+          <div id="fillter-container">
+            <p class="title-access-fillter">Fillter by Region</p>
+            <ul class="fillter hidden">
+              <li class="fillter-option">Africa</li>
+              <li class="fillter-option">America</li>
+              <li class="fillter-option">Asia</li>
+              <li class="fillter-option">Europe</li>
+              <li class="fillter-option">Oceania</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main-container"></div>
+    </main>
+  </body>
+</html>
