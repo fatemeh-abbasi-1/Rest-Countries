@@ -4,12 +4,16 @@ const fillterBtn = document.querySelector(".title-access-fillter");
 const sortBtn = document.querySelector(".title-access-sort");
 const optionsFillter = document.querySelector(".fillter");
 const optionsSort = document.querySelector(".sort");
-const userSearch = document.querySelector(".input-search");
+const goBack = document.querySelector(".back");
+let userSearch = document.querySelector(".input-search");
 
 let allCountries = 1;
+let countryDataInScreen = [];
+
 // ----------------------
 
 const createCard = function (data) {
+  countryDataInScreen.push(data);
   console.log("this is my data", data);
   const infoCounty = document.createElement("div");
   container.append(infoCounty);
@@ -44,7 +48,7 @@ const createCard = function (data) {
   infoCountryText.append(capital);
 };
 
-const getCountry = async function (region) {
+const getCountrysFromRegion = async function (region) {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     const data = await res.json();
@@ -56,7 +60,7 @@ const getCountry = async function (region) {
     console.error(err.message);
   }
 };
-getCountry("america");
+getCountrysFromRegion("america");
 
 //display items fillter
 fillterBtn.addEventListener("mouseover", function () {
@@ -78,11 +82,12 @@ optionsSort.addEventListener("mouseleave", function () {
 
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
+  countryDataInScreen = [];
   const regionName = e.target.textContent;
   const editRegionName = regionName[0].toLowerCase() + regionName.slice(1);
   console.log(editRegionName);
   container.textContent = "";
-  getCountry(editRegionName);
+  getCountrysFromRegion(editRegionName);
   optionsFillter.classList.add("hidden");
 });
 
@@ -101,10 +106,63 @@ getAllCountries();
 
 //search
 userSearch.addEventListener("keyup", function (e) {
-  const userSearchValue = userSearch.value;
-  console.log(userSearchValue);
-  const findCountry = allCountries.fillter((c) => {
-    c.name.common === userSearchValue;
+  let userSearchValue = userSearch.value;
+  const editUserSearchValue =
+    userSearchValue.slice(0, 1).toUpperCase() + userSearch.value.slice(1);
+  console.log(editUserSearchValue);
+  let country;
+  const findCountry = allCountries.forEach((c, i) => {
+    // if (c.name.common === editUserSearchValue) {
+    //   country = c;
+    //   container.textContent = "";
+    // }
+    if (c.name.common.includes(editUserSearchValue)) {
+      country = c;
+      container.textContent = "";
+      goBack.classList.remove("hidden");
+    }
   });
-  console.log(findCountry);
+  createCard(country);
 });
+//go back
+goBack.addEventListener("click", function (e) {
+  container.innerHTML = "";
+  getCountrysFromRegion("america");
+  userSearch.value = "";
+  goBack.classList.add("hidden");
+});
+
+//sort
+optionsSort.addEventListener("click", function (e) {
+  console.log(e.target.textContent);
+  // if (e.target.textContent === "Name") {
+  //   const sortName = countryDataInScreen.sort(
+  //     (a, b) => b.name.common - a.name.common
+  //   );
+  //   console.log(sortName);
+
+  //   container.innerHTML = "";
+  //   for (let i = 0; i < 8; i++) {
+  //     createCard(sortName[i]);
+  //   }
+  // }
+  if (e.target.textContent === "Population") {
+    const sortPopulation = countryDataInScreen.sort(
+      (a, b) => b.population - a.population
+    );
+    console.log(countryDataInScreen);
+    console.log(sortPopulation);
+    container.innerHTML = "";
+    for (let i = 0; i < 8; i++) {
+      createCard(sortPopulation[i]);
+    }
+  }
+  if (e.target.textContent === "Area") {
+    const sortArea = countryDataInScreen.sort((a, b) => b.area - a.area);
+    container.innerHTML = "";
+    for (let i = 0; i < 8; i++) {
+      createCard(sortArea[i]);
+    }
+  }
+});
+console.log(countryDataInScreen);

@@ -35,6 +35,17 @@ body {
   width: 20rem;
   padding: 0.5rem;
   border: none;
+  margin-left: 1rem;
+}
+.search-back {
+  display: flex;
+}
+.back {
+  padding: 0.7rem 0.3rem;
+  width: 4rem;
+  height: 2.8rem;
+  margin-right: 1rem;
+  background-color: var(--Light-Mode-Elements);
 }
 .fillter-sort {
   display: flex;
@@ -52,6 +63,7 @@ body {
   list-style: none;
   padding: 0.3rem;
   padding-left: 0.8rem;
+  cursor: pointer;
 }
 .fillter {
   background-color: var(--Light-Mode-Elements);
