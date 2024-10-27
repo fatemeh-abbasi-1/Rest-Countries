@@ -41,11 +41,12 @@ body {
   display: flex;
 }
 .back {
-  padding: 0.7rem 0.3rem;
-  width: 4rem;
+  padding: 0.3rem 0.3rem;
+  width: 3rem;
   height: 2.8rem;
-  margin-right: 1rem;
-  background-color: var(--Light-Mode-Elements);
+  /* background-color: var(--Light-Mode-Elements); */
+  text-align: center;
+  margin-top: -0.1rem;
 }
 .fillter-sort {
   display: flex;
@@ -86,9 +87,11 @@ body {
   padding-top: 0.5rem;
   height: 2.4rem;
 }
+.light-dark {
+  width: 1rem;
+}
 .title-access-fillter {
   width: 8rem;
-  /* margin-bottom: 0.4rem; */
   margin-right: 1.5rem;
   height: 1.8rem;
   background-color: var(--Light-Mode-Elements);
@@ -112,4 +115,31 @@ body {
 }
 .info-country {
   padding: 0.5rem 1rem;
+}
+.back-btn {
+  font-size: 1rem;
+  width: 5rem;
+  height: 2.4rem;
+  background-color: var(--Light-Mode-Elements);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+.getchild {
+  cursor: pointer;
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+@media only screen and (min-width: 375px) and (max-width: 500px) {
+  .main-container {
+    display: flex;
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+  .getchild {
+    margin-right: 1rem;
+    margin-left: 2rem;
+    width: 90%;
+  }
 }
