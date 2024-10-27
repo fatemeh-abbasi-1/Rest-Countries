@@ -14,8 +14,6 @@ let userSearch = document.querySelector(".input-search");
 let allCountries;
 let countryDataInScreen = [];
 
-// ----------------------
-
 const createCard = function (data) {
   countryDataInScreen.push(data);
   console.log("this is my data", data);
@@ -25,11 +23,8 @@ const createCard = function (data) {
   infoCounty.classList.add("getchild");
   infoCounty.style.width = "15rem";
   infoCounty.style.height = "17.5rem";
-  // infoCounty.style.marginRight = "3rem";
-  // infoCounty.style.marginLeft = "3rem";
   infoCounty.style.marginBottom = "2.4rem";
   infoCounty.classList.add("info-country");
-  // infoCounty.style.backgroundColor = "var(--Light-Mode-Elements)";
   const imgFlag = document.createElement("img");
   imgFlag.src = `${data.flags.png}`;
   imgFlag.style.height = "8.5rem";
@@ -62,7 +57,6 @@ const countryDetails = function (data) {
   const currenciesToArr = Object.values(data.currencies);
   console.log(currenciesToArr);
   const containerDetail = document.createElement("div");
-  // containerDetail.classList.add("detail-container");
   containerDetail.style.marginRight = "auto";
   containerDetail.style.marginLeft = "auto";
   container.append(containerDetail);
@@ -79,12 +73,8 @@ const countryDetails = function (data) {
   const infoCountryDetails = document.createElement("div");
   infoCountryDetails.classList.add("detail-container");
   containerDetail.append(infoCountryDetails);
-  // infoCountryDetails.style.display = "flex";
-  // infoCountryDetails.style.flexDirection = "row";
   const imgContryDetail = document.createElement("img");
   imgContryDetail.classList.add("img-detail");
-  // imgContryDetail.style.width = "55%";
-  // imgContryDetail.style.height = "17.5rem";
   imgContryDetail.style.marginRight = "10%";
   imgContryDetail.style.marginBottom = "15%";
   imgContryDetail.src = `${data.flags.png}`;
@@ -155,7 +145,7 @@ const getCountrysFromRegion = async function (region) {
     }
   } catch (err) {
     console.error(err.message);
-    // handelError(err.massage);
+    handelError(err.massage);
   }
 };
 getCountrysFromRegion("america");
@@ -284,7 +274,6 @@ lightAndDarkBtn.addEventListener("click", function () {
 });
 // page details
 function renderDetailsCountry(event) {
-  // console.log(event.target);
   const findCountry =
     event.target.closest(".getchild").children[1].children[0].innerHTML;
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
@@ -305,7 +294,3 @@ function goToHome() {
     createCard(countryDataInScreen[i]);
   }
 }
-// //light and dark
-// lightAndDarkBtn.addEventListener("click", function () {
-//   console.log("fati");
-// });
