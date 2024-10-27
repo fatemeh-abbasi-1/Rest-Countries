@@ -8,7 +8,7 @@ const goBack = document.querySelector(".back");
 const main = document.querySelector(".main");
 const getChild = document.querySelector(".getchild");
 const userAccess = document.querySelector(".user-access");
-const lightAndDarkBtn = document.querySelector(".light-dark");
+const lightAndDarkBtn = document.querySelector(".light-dark-icon");
 let userSearch = document.querySelector(".input-search");
 
 let allCountries;
@@ -24,11 +24,12 @@ const createCard = function (data) {
   infoCounty.setAttribute("onclick", "renderDetailsCountry(event)");
   infoCounty.classList.add("getchild");
   infoCounty.style.width = "15rem";
-  infoCounty.style.height = "16.5rem";
+  infoCounty.style.height = "17.5rem";
   // infoCounty.style.marginRight = "3rem";
   // infoCounty.style.marginLeft = "3rem";
   infoCounty.style.marginBottom = "2.4rem";
-  infoCounty.style.backgroundColor = "var(--Light-Mode-Elements)";
+  infoCounty.classList.add("info-country");
+  // infoCounty.style.backgroundColor = "var(--Light-Mode-Elements)";
   const imgFlag = document.createElement("img");
   imgFlag.src = `${data.flags.png}`;
   imgFlag.style.height = "8.5rem";
@@ -36,7 +37,7 @@ const createCard = function (data) {
   const infoCountryText = document.createElement("div");
   infoCounty.append(infoCountryText);
   imgFlag.style.width = "100%";
-  const nameCountry = document.createElement("h3");
+  const nameCountry = document.createElement("h4");
   nameCountry.textContent = `${data.name.common}`;
   nameCountry.style.marginBottom = "0.6rem";
   infoCountryText.append(nameCountry);
@@ -61,6 +62,7 @@ const countryDetails = function (data) {
   const currenciesToArr = Object.values(data.currencies);
   console.log(currenciesToArr);
   const containerDetail = document.createElement("div");
+  // containerDetail.classList.add("detail-container");
   containerDetail.style.marginRight = "auto";
   containerDetail.style.marginLeft = "auto";
   container.append(containerDetail);
@@ -69,24 +71,22 @@ const countryDetails = function (data) {
   containerBtnBack.style.height = "3rem";
   containerBtnBack.style.marginBottom = "2rem";
   containerDetail.append(containerBtnBack);
-  // const backBtnDetail = document.createElement("img");
-  // backBtnDetail.classList.add("back-btn");
-  // backBtnDetail.setAttribute("onclick", "goToHome()");
-  // backBtnDetail.src = "img/aroow.png";
-  // containerBtnBack.append(backBtnDetail);
   const textBack = document.createElement("p");
-  textBack.textContent = "🠔 back";
+  textBack.textContent = "← back";
   textBack.classList.add("back-btn");
   textBack.setAttribute("onclick", "goToHome()");
   containerBtnBack.append(textBack);
   const infoCountryDetails = document.createElement("div");
+  infoCountryDetails.classList.add("detail-container");
   containerDetail.append(infoCountryDetails);
-  infoCountryDetails.style.display = "flex";
-  infoCountryDetails.style.flexDirection = "row";
+  // infoCountryDetails.style.display = "flex";
+  // infoCountryDetails.style.flexDirection = "row";
   const imgContryDetail = document.createElement("img");
-  imgContryDetail.style.width = "55%";
-  imgContryDetail.style.height = "17.5rem";
+  imgContryDetail.classList.add("img-detail");
+  // imgContryDetail.style.width = "55%";
+  // imgContryDetail.style.height = "17.5rem";
   imgContryDetail.style.marginRight = "10%";
+  imgContryDetail.style.marginBottom = "15%";
   imgContryDetail.src = `${data.flags.png}`;
   infoCountryDetails.append(imgContryDetail);
   const infoContryText = document.createElement("div");
@@ -138,11 +138,16 @@ const countryDetails = function (data) {
   nameBorder3.textContent = `${data.borders[2]}`;
   infoContryText.append(nameBorder3);
 };
-
+function handelError(err) {
+  const html = `<h3>Something went wrong, please try again!${err}</h3>`;
+  document.body.innerHTML = "";
+  container.insertAdjacentText("afterbegin", html);
+}
 //get countries from region
 const getCountrysFromRegion = async function (region) {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
+    if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
     console.log(data);
     for (let i = 0; i < 8; i++) {
@@ -150,6 +155,7 @@ const getCountrysFromRegion = async function (region) {
     }
   } catch (err) {
     console.error(err.message);
+    // handelError(err.massage);
   }
 };
 getCountrysFromRegion("america");
@@ -186,11 +192,13 @@ optionsFillter.addEventListener("click", function (e) {
 const getOneCountry = async function (country) {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+    if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
     console.log(data);
     countryDetails(data[0]);
   } catch (err) {
-    console.error(err);
+    console.log(err);
+    handelError(err.massage);
   }
 };
 // getOneCountry("usa");
@@ -198,11 +206,13 @@ const getOneCountry = async function (country) {
 const getAllCountries = async function () {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/all`);
+    if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
     console.log(data);
     allCountries = data;
   } catch (err) {
     console.error(err);
+    handelError(err.massage);
   }
 };
 getAllCountries();
@@ -222,6 +232,10 @@ userSearch.addEventListener("keyup", function (e) {
     }
   });
   createCard(country);
+  if (userSearchValue === "") {
+    countryDataInScreen = [];
+    getCountrysFromRegion("asia");
+  }
 });
 //go back
 goBack.addEventListener("click", function (e) {
@@ -264,14 +278,13 @@ optionsSort.addEventListener("click", function (e) {
     }
   }
 });
+//light and dark
+lightAndDarkBtn.addEventListener("click", function () {
+  document.querySelector("html").classList.toggle("dark-mode");
+});
 // page details
 function renderDetailsCountry(event) {
-  console.log("kdfnkv");
-
-  console.log(event);
-
-  console.log(event.target);
-
+  // console.log(event.target);
   const findCountry =
     event.target.closest(".getchild").children[1].children[0].innerHTML;
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
@@ -283,11 +296,6 @@ function renderDetailsCountry(event) {
   getOneCountry(editFindCountry);
 }
 renderDetailsCountry();
-
-//light and dark
-// lightAndDarkBtn.addEventListener("click", function () {
-//   document.body.classList.toggle(var(--Light - Mode - Text));
-// });
 //go to home
 function goToHome() {
   container.innerHTML = "";
@@ -297,3 +305,7 @@ function goToHome() {
     createCard(countryDataInScreen[i]);
   }
 }
+// //light and dark
+// lightAndDarkBtn.addEventListener("click", function () {
+//   console.log("fati");
+// });
