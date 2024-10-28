@@ -15,9 +15,29 @@ let userSearch = document.querySelector(".input-search");
 let allCountries;
 let countryDataInScreen = [];
 
+//header
+const body = document.querySelector("body");
+const headerMain = document.createElement("div");
+body.prepend(headerMain);
+headerMain.classList.add("header");
+headerMain.style.width = "100%";
+headerMain.style.height = "3.5rem";
+headerMain.style.backgroundColor = "var(--color-elements)";
+const question = document.createElement("h2");
+question.textContent = "Where in the world?";
+headerMain.append(question);
+const moonBtn = document.createElement("img");
+moonBtn.src = "img/moon.png";
+headerMain.append(moonBtn);
+// moonBtn.classList.add("light-dark-icon");
+moonBtn.setAttribute("onclick", "handeleLightAndDark()");
+moonBtn.style.marginTop = "0.3rem";
+moonBtn.style.width = "1.2rem";
+moonBtn.style.cursor = "pointer";
+
+//-----------------------
 const createCard = function (data) {
   countryDataInScreen.push(data);
-  console.log("this is my data", data);
   const infoCounty = document.createElement("div");
   container.append(infoCounty);
   infoCounty.setAttribute("onclick", "renderDetailsCountry(event)");
@@ -142,7 +162,6 @@ const getCountrysFromRegion = async function (region) {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
-    console.log(data);
     for (let i = 0; i < 8; i++) {
       createCard(data[i]);
     }
@@ -270,9 +289,9 @@ optionsSort.addEventListener("click", function (e) {
   }
 });
 //light and dark
-lightAndDarkBtn.addEventListener("click", function () {
+function handeleLightAndDark() {
   document.querySelector("html").classList.toggle("dark-mode");
-});
+}
 // page details
 function renderDetailsCountry(event) {
   const findCountry =

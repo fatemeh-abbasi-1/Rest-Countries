@@ -22,12 +22,8 @@ body {
   color: var(--color-text);
   font-family: Nunito;
   font-size: 0.9rem;
-  /* font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; */
 }
 .header {
-  width: 100%;
-  height: 3.5rem;
-  background-color: var(--color-elements);
   display: flex;
   justify-content: space-between;
   padding: 1rem 3rem;
@@ -98,11 +94,6 @@ body {
   padding-left: 0.5rem;
   padding-top: 0.5rem;
   height: 2.4rem;
-}
-.light-dark-icon {
-  width: 1.2rem;
-  margin-top: 0.3rem;
-  cursor: pointer;
 }
 .title-access-fillter {
   width: 8rem;
@@ -215,4 +206,3 @@ body {
     width: 90%;
   }
 }
-/* @media only screen and (min-width: 769px) and (max-width: 1200px) {} */
