@@ -9,6 +9,7 @@ const main = document.querySelector(".main");
 const getChild = document.querySelector(".getchild");
 const userAccess = document.querySelector(".user-access");
 const lightAndDarkBtn = document.querySelector(".light-dark-icon");
+const header = document.querySelector(".header");
 let userSearch = document.querySelector(".input-search");
 
 let allCountries;
@@ -128,10 +129,12 @@ const countryDetails = function (data) {
   nameBorder3.textContent = `${data.borders[2]}`;
   infoContryText.append(nameBorder3);
 };
-function handelError(err) {
-  const html = `<h3>Something went wrong, please try again!${err}</h3>`;
-  document.body.innerHTML = "";
-  container.insertAdjacentText("afterbegin", html);
+function handelError() {
+  header.classList.add("hidden");
+  userAccess.classList.add("hidden");
+  const titleErr = document.createElement("h4");
+  titleErr.textContent = "Something went wrong, please try again!";
+  container.append(titleErr);
 }
 //get countries from region
 const getCountrysFromRegion = async function (region) {
@@ -144,8 +147,7 @@ const getCountrysFromRegion = async function (region) {
       createCard(data[i]);
     }
   } catch (err) {
-    console.error(err.message);
-    handelError(err.massage);
+    handelError();
   }
 };
 getCountrysFromRegion("america");
@@ -187,8 +189,7 @@ const getOneCountry = async function (country) {
     console.log(data);
     countryDetails(data[0]);
   } catch (err) {
-    console.log(err);
-    handelError(err.massage);
+    handelError();
   }
 };
 // getOneCountry("usa");
@@ -201,8 +202,7 @@ const getAllCountries = async function () {
     console.log(data);
     allCountries = data;
   } catch (err) {
-    console.error(err);
-    handelError(err.massage);
+    handelError();
   }
 };
 getAllCountries();
