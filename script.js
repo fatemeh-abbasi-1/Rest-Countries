@@ -23,7 +23,7 @@ const createCard = function (data) {
   infoCounty.classList.add("getchild");
   infoCounty.style.width = "15rem";
   infoCounty.style.height = "17.5rem";
-  infoCounty.style.marginBottom = "2.4rem";
+  infoCounty.style.marginBottom = "2.2rem";
   infoCounty.classList.add("info-country");
   const imgFlag = document.createElement("img");
   imgFlag.src = `${data.flags.png}`;
@@ -225,6 +225,7 @@ userSearch.addEventListener("keyup", function (e) {
   if (userSearchValue === "") {
     countryDataInScreen = [];
     getCountrysFromRegion("asia");
+    goBack.classList.add("hidden");
   }
 });
 //go back
