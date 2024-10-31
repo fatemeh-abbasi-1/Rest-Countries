@@ -74,9 +74,7 @@ const createCard = function (data) {
 //CountryDetails
 const countryDetails = function (data) {
   const languagesToArr = Object.values(data.languages);
-  console.log(languagesToArr);
   const currenciesToArr = Object.values(data.currencies);
-  console.log(currenciesToArr);
   const containerDetail = document.createElement("div");
   containerDetail.style.marginRight = "auto";
   containerDetail.style.marginLeft = "auto";
@@ -103,7 +101,7 @@ const countryDetails = function (data) {
   const infoContryText = document.createElement("div");
   infoCountryDetails.append(infoContryText);
   const nameCountryDtail = document.createElement("h2");
-  nameCountryDtail.style.marginBottom = "1rem";
+  nameCountryDtail.style.marginBottom = "2.2rem";
   nameCountryDtail.textContent = `${data.name.common}`;
   infoContryText.append(nameCountryDtail);
   const topLevelDomain = document.createElement("p");
@@ -123,29 +121,47 @@ const countryDetails = function (data) {
   regionDetail.textContent = `Region Detail : ${data.region}`;
   infoContryText.append(regionDetail);
   const languages = document.createElement("p");
-  languages.style.marginBottom = "0.5rem";
+  languages.style.marginBottom = "1.5rem";
+
   languages.textContent = `Languages :${languagesToArr}`;
   infoContryText.append(languages);
+  const infoContryText2 = document.createElement("div");
+  infoCountryDetails.append(infoContryText2);
+  infoContryText2.style.paddingTop = '4rem';
+  infoContryText2.style.marginLeft = '3rem';
   const subRegion = document.createElement("p");
   subRegion.style.marginBottom = "0.5rem";
   subRegion.textContent = `Sub Region :${data.subregion}`;
-  infoContryText.append(subRegion);
+  infoContryText2.append(subRegion);
   const capitalDetail = document.createElement("p");
   capitalDetail.style.marginBottom = "0.5rem";
   capitalDetail.textContent = `Capital: ${data.capital[0]}`;
-  infoContryText.append(capitalDetail);
+  infoContryText2.append(capitalDetail);
   if (!data.borders) return;
   const border = document.createElement("span");
   border.style.marginBottom = "0.5rem";
   border.textContent = `Border :`;
   infoContryText.append(border);
-  const nameBorder1 = document.createElement("span");
+  const nameBorder1 = document.createElement("div");
+  nameBorder1.style.backgroundColor = 'var(--color-elements)';
+  nameBorder1.style.marginRight = '1rem';
+  nameBorder1.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
+
+
   nameBorder1.textContent = `${data.borders[0]}`;
   infoContryText.append(nameBorder1);
-  const nameBorder2 = document.createElement("span");
+  const nameBorder2 = document.createElement("div");
+  nameBorder2.style.backgroundColor = 'var(--color-elements)';
+  nameBorder2.style.marginRight = '1rem';
+  nameBorder2.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
+
   nameBorder2.textContent = `${data.borders[1]}`;
   infoContryText.append(nameBorder2);
-  const nameBorder3 = document.createElement("span");
+  const nameBorder3 = document.createElement("div");
+  nameBorder3.style.backgroundColor = 'var(--color-elements)';
+  nameBorder3.style.marginRight = '1rem';
+  nameBorder3.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
+
   nameBorder3.textContent = `${data.borders[2]}`;
   infoContryText.append(nameBorder3);
 };
@@ -162,9 +178,7 @@ const getCountrysFromRegion = async function (region) {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
-    for (let i = 0; i < 8; i++) {
-      createCard(data[i]);
-    }
+    data.forEach(i => createCard(i));
   } catch (err) {
     handelError();
   }
@@ -205,7 +219,6 @@ const getOneCountry = async function (country) {
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
-    console.log(data);
     countryDetails(data[0]);
   } catch (err) {
     handelError();
@@ -218,33 +231,50 @@ const getAllCountries = async function () {
     const res = await fetch(`https://restcountries.com/v3.1/all`);
     if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     allCountries = data;
   } catch (err) {
     handelError();
   }
 };
 getAllCountries();
-
+ let showErr;
 //search
 userSearch.addEventListener("keyup", function (e) {
+  // console.log();
+  if(main.children.length === 3){
+    console.log('hrllif');
+    // showErr.textContent = '';
+  }
   let userSearchValue = userSearch.value;
   const editUserSearchValue =
     userSearchValue.slice(0, 1).toUpperCase() + userSearch.value.slice(1);
   console.log(editUserSearchValue);
-  let country;
-  const findCountry = allCountries.forEach((c, i) => {
-    if (c.name.common.includes(editUserSearchValue)) {
-      country = c;
-      container.textContent = "";
-      goBack.classList.remove("hidden");
-    }
-  });
-  createCard(country);
+  const findCountry = allCountries.filter((c,i) => c.name.common.includes(editUserSearchValue));
+  // console.log(main.children[2]);
+  // if(main.children[2].textContent === 'country not find!')return;
+  if(findCountry.length === 0 ){
+    // alert('country not find!');
+    container.textContent = "";
+  showErr = document.createElement('h3');
+  console.log(showErr);
+  showErr.style.marginTop = '6rem';
+  showErr.style.marginBottom = '40rem';
+  showErr.textContent = 'country not find!';
+  main.append(showErr);
+  main.style.textAlign = 'center';
+  document.body.style.overflowY = 'hidden';
+  }
+  container.textContent = "";
+  goBack.classList.remove("hidden");
+    console.log(findCountry);
+  findCountry.forEach((c,i)=>createCard(c));
   if (userSearchValue === "") {
     countryDataInScreen = [];
+    // main.textContent = ' ';
     getCountrysFromRegion("asia");
     goBack.classList.add("hidden");
+   
   }
 });
 //go back
@@ -257,7 +287,7 @@ goBack.addEventListener("click", function (e) {
 
 //sort
 optionsSort.addEventListener("click", function (e) {
-  console.log(e.target.textContent);
+  // console.log(e.target.textContent);
   if (e.target.textContent === "Name") {
     let sortName = countryDataInScreen.sort((a, b) => {
       if (a.name.common > b.name.common) return 1;
@@ -265,9 +295,7 @@ optionsSort.addEventListener("click", function (e) {
     });
     container.innerHTML = "";
     countryDataInScreen = [];
-    for (let i = 0; i < 8; i++) {
-      createCard(sortName[i]);
-    }
+    sortName.forEach(i =>createCard(i));
   }
   if (e.target.textContent === "Population") {
     let sortPopulation = countryDataInScreen.sort(
@@ -275,17 +303,13 @@ optionsSort.addEventListener("click", function (e) {
     );
     container.innerHTML = "";
     countryDataInScreen = [];
-    for (let i = 0; i < 8; i++) {
-      createCard(sortPopulation[i]);
-    }
+   sortPopulation.forEach(i =>createCard(i));
   }
   if (e.target.textContent === "Area") {
     let sortArea = countryDataInScreen.sort((a, b) => b.area - a.area);
     container.innerHTML = "";
     countryDataInScreen = [];
-    for (let i = 0; i < 8; i++) {
-      createCard(sortArea[i]);
-    }
+    sortArea.forEach(i =>createCard(i));
   }
 });
 //light and dark
@@ -297,21 +321,17 @@ function renderDetailsCountry(event) {
   const findCountry =
     event.target.closest(".getchild").children[1].children[0].innerHTML;
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
-  console.log(editFindCountry);
   container.innerHTML = "";
   userAccess.classList.add("hidden");
   container.style.paddingTop = "4rem";
   userSearch.value = "";
   getOneCountry(editFindCountry);
 }
-renderDetailsCountry();
 //go to home
 function goToHome() {
   container.innerHTML = "";
   goBack.classList.add("hidden");
   container.style.paddingTop = "0.5rem";
   userAccess.classList.remove("hidden");
-  for (let i = 0; i < 8; i++) {
-    createCard(countryDataInScreen[i]);
-  }
+ countryDataInScreen.forEach(i => createCard(i));
 }

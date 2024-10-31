@@ -118,6 +118,8 @@ body {
   justify-content: center;
   z-index: -1;
   position: absolute;
+  margin-right: auto;
+  margin-left: auto;
 }
 .info-country {
   padding: 0.5rem 1rem;
@@ -143,7 +145,7 @@ body {
   justify-content: center;
 }
 .img-detail {
-  width: 55%;
+  width: 40%;
   height: 17.5rem;
 }
 @media only screen and (min-width: 375px) and (max-width: 550px) {
@@ -181,7 +183,7 @@ body {
     margin-left: 2rem;
   }
   .img-detail {
-    width: 70%;
+    width:85%;
     height: 12rem;
   }
 }
