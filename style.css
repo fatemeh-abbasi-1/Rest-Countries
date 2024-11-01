@@ -13,6 +13,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 @font-face {
   font-family: Nunito;
   src: url(font/Nunito_Sans/static/NunitoSans_10pt-Medium.ttf);
@@ -132,8 +133,8 @@ body {
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   cursor: pointer;
   padding: 0.4rem;
-  margin-left: 1rem;
-}
+   margin-left: 2rem;
+ }
 .getchild {
   cursor: pointer;
   margin-right: 3rem;
@@ -147,6 +148,11 @@ body {
 .img-detail {
   width: 40%;
   height: 17.5rem;
+}
+.show-error{
+  margin-top: 6rem;
+text-align: center;
+/* width:max-content; */
 }
 @media only screen and (min-width: 375px) and (max-width: 550px) {
   .main-container {
