@@ -28,7 +28,7 @@ const question = document.createElement("h2");
 question.textContent = "Where in the world ?";
 headerMain.append(question);
 const moonBtn = document.createElement("img");
-moonBtn.src = "img/moon.png";
+moonBtn.src = "icon/moon.png";
 moonBtn.setAttribute('data-mood','moon');
 headerMain.append(moonBtn);
 moonBtn.setAttribute("onclick", "handeleLightAndDark(event)");
@@ -38,14 +38,14 @@ moonBtn.style.cursor = "pointer";
 
 //create card
 const createCard = function (data) {
-  countryDataInScreen.push(data);
-  const infoCounty = document.createElement("div");
-  container.append(infoCounty);
-  infoCounty.setAttribute("onclick", "renderDetailsCountry(event)");
-  infoCounty.classList.add("getchild");
-  infoCounty.style.width = "15rem";
-  infoCounty.style.height = "18rem";
-  infoCounty.style.marginBottom = "1.4rem";
+countryDataInScreen.push(data);
+const infoCounty = document.createElement("div");
+container.append(infoCounty);
+infoCounty.setAttribute("onclick", "renderDetailsCountry(event)");
+infoCounty.classList.add("getchild");
+infoCounty.style.width = "15rem";
+infoCounty.style.height = "18rem";
+infoCounty.style.marginBottom = "1.4rem";
   infoCounty.classList.add("info-country");
   const imgFlag = document.createElement("img");
   imgFlag.src = `${data.flags.png}`;
@@ -101,49 +101,61 @@ const countryDetails = function (data) {
   imgContryDetail.src = `${data.flags.png}`;
   infoCountryDetails.append(imgContryDetail);
   const infoContryText = document.createElement("div");
+  infoContryText.classList.add('detail-text1');
+  // infoContryText.style.display = 'grid';
+  // infoContryText.style.gridTemplateColumns = '50% 50%';
+  // infoContryText.style.gridTemplateRows = '15rem 5rem';
   infoCountryDetails.append(infoContryText);
+  const infoCountrySection1 = document.createElement("div");
+  infoCountrySection1.style.gridColumn = '1';
+  infoCountrySection1.style.height = 'fit-content';
+  infoContryText.append(infoCountrySection1);
   const nameCountryDtail = document.createElement("h2");
-  nameCountryDtail.style.marginBottom = "2.2rem";
-  nameCountryDtail.textContent = `${data.name.common}`;
-  infoContryText.append(nameCountryDtail);
-  const topLevelDomain = document.createElement("p");
-  topLevelDomain.style.marginBottom = "0.5rem";
-  topLevelDomain.textContent = `Native name :${data.name.common}`;
-  infoContryText.append(topLevelDomain);
-  const population = document.createElement("p");
-  population.style.marginBottom = "0.5rem";
-  population.textContent = `Population : ${data.population}`;
-  infoContryText.append(population);
-  const currencies = document.createElement("p");
-  currencies.style.marginBottom = "0.5rem";
-  currencies.textContent = `Currencies : ${currenciesToArr[0].name}`;
-  infoContryText.append(currencies);
-  const regionDetail = document.createElement("p");
-  regionDetail.style.marginBottom = "0.5rem";
-  regionDetail.textContent = `Region Detail : ${data.region}`;
-  infoContryText.append(regionDetail);
-  const languages = document.createElement("p");
-  languages.style.marginBottom = "2rem";
-
-  languages.textContent = `Languages :${languagesToArr}`;
-  infoContryText.append(languages);
-  const infoContryText2 = document.createElement("div");
-  infoCountryDetails.append(infoContryText2);
-  infoContryText2.style.paddingTop = '4rem';
-  infoContryText2.style.marginLeft = '3rem';
+   nameCountryDtail.classList.add('name-country-detail');
+    nameCountryDtail.textContent = `${data.name.common}`;
+    infoCountrySection1.append(nameCountryDtail);
+    const topLevelDomain = document.createElement("p");
+    topLevelDomain.style.marginBottom = "0.5rem";
+    topLevelDomain.textContent = `Native name :${data.name.common}`;
+    infoCountrySection1.append(topLevelDomain);
+    const population = document.createElement("p");
+    population.style.marginBottom = "0.5rem";
+    population.textContent = `Population : ${data.population}`;
+    infoCountrySection1.append(population);
+    const currencies = document.createElement("p");
+    currencies.style.marginBottom = "0.5rem";
+    currencies.textContent = `Currencies : ${currenciesToArr[0].name}`;
+    infoCountrySection1.append(currencies);
+    const regionDetail = document.createElement("p");
+    regionDetail.style.marginBottom = "0.5rem";
+    regionDetail.textContent = `Region Detail : ${data.region}`;
+    infoCountrySection1.append(regionDetail);
+    const languages = document.createElement("p");
+    languages.style.marginBottom = "1rem";
+    languages.textContent = `Languages :${languagesToArr}`;
+    infoCountrySection1.append(languages);
+  const infoCountrySection2 = document.createElement("div");
+  infoCountrySection2.classList.add('detail-text2');
+  // infoCountrySection2.style.gridColumn = '2';
+  infoCountrySection2.style.paddingTop = '4rem';
+  infoContryText.append(infoCountrySection2);
   const subRegion = document.createElement("p");
   subRegion.style.marginBottom = "0.5rem";
   subRegion.textContent = `Sub Region :${data.subregion}`;
-  infoContryText2.append(subRegion);
+  infoCountrySection2.append(subRegion);
   const capitalDetail = document.createElement("p");
   capitalDetail.style.marginBottom = "0.5rem";
   capitalDetail.textContent = `Capital: ${data.capital[0]}`;
-  infoContryText2.append(capitalDetail);
-  if (!data.borders) return;
+  infoCountrySection2.append(capitalDetail);
+  const infoCountrySection3 = document.createElement("div");
+  infoCountrySection3.style.gridColumn = '1';
+  infoContryText.append(infoCountrySection3);
+   if (!data.borders) return;
   const border = document.createElement("span");
   border.style.marginBottom = "0.5rem";
   border.textContent = `Border : `;
-  infoContryText.append(border);
+  infoCountrySection3.append(border);
+  if (!data.borders[0]) return;
   const nameBorder1 = document.createElement("div");
   nameBorder1.style.display = 'inline';
   nameBorder1.style.width = 'max-content';
@@ -151,30 +163,31 @@ const countryDetails = function (data) {
   nameBorder1.style.marginRight = '1rem';
   nameBorder1.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
   nameBorder1.style.padding = `0.4rem`;
-
   nameBorder1.textContent = `${data.borders[0]}`;
-  infoContryText.append(nameBorder1);
+ infoCountrySection3.append(nameBorder1);
+ if (!data.borders[2]) return;
   const nameBorder2 = document.createElement("div");
   nameBorder2.style.display = 'inline';
   nameBorder2.style.width = `max-content`;
   nameBorder2.style.padding = `0.4rem`;
-
   nameBorder2.style.backgroundColor = 'var(--color-elements)';
   nameBorder2.style.marginRight = '1rem';
   nameBorder2.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
-
   nameBorder2.textContent = `${data.borders[1]}`;
-  infoContryText.append(nameBorder2);
-  const nameBorder3 = document.createElement("div");
-  nameBorder3.style.display = 'inline';
-  nameBorder3.style.width = `max-content`;
-  nameBorder3.style.backgroundColor = 'var(--color-elements)';
-  nameBorder3.style.marginRight = '1rem';
-  nameBorder3.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
-  nameBorder3.style.padding = `0.4rem`;
-  nameBorder3.textContent = `${data.borders[2]}`;
-  infoContryText.append(nameBorder3);
+  infoCountrySection3.append(nameBorder2);
+  // if (!data.borders[3]) return;
+  // const nameBorder3 = document.createElement("div");
+  // nameBorder3.style.display = 'inline';
+  // nameBorder3.style.width = `max-content`;
+  // nameBorder3.style.backgroundColor = 'var(--color-elements)';
+  // nameBorder3.style.marginRight = '1rem';
+  // nameBorder3.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
+  // nameBorder3.style.padding = `0.4rem`;
+  // nameBorder3.textContent = `${data.borders[2]}`;
+  // infoCountrySection3.append(nameBorder3);
 };
+
+//handelError
 function handelError() {
   header.classList.add("hidden");
   userAccess.classList.add("hidden");
@@ -193,7 +206,6 @@ const getCountrysFromRegion = async function (region) {
     handelError();
   }
 };
-// getCountrysFromRegion("america");
 
 //display items fillter
 fillterBtn.addEventListener("mouseover", function () {
@@ -230,7 +242,7 @@ const getAllCountries = async function () {
   }
 };
 getAllCountries();
-// console.log(allCountries);
+
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
   countryDataInScreen = [];
@@ -271,15 +283,11 @@ userSearch.addEventListener("keyup", function (e) {
     notFindCountry.classList.add('hidden');
   }
   container.textContent = "";
-  // goBack.classList.remove("hidden");
     console.log(findCountry);
   findCountry.forEach((c,i) => createCard(c));
   if (userSearchValue === "") {
-    // console.log('fatiiiiiiiiiiiiiiiiiiiiiiiii');
     notFindCountry.classList.add('hidden');
     countryDataInScreen = [];
-    // getCountrysFromRegion("asia");
-    // goBack.classList.add("hidden");
   }
 });
 //go back
@@ -322,13 +330,12 @@ function handeleLightAndDark(event) {
   document.querySelector("html").classList.toggle("dark-mode");
   console.log(event.target.dataset.mood);
   if(event.target.dataset.mood === 'moon'){
-      moonBtn.src = 'img/sun.png';
+      moonBtn.src = 'icon/sun.png';
       moonBtn.setAttribute('data-mood','sun');
       return;
   }
  if(event.target.dataset.mood === 'sun'){
-  console.log('fahhhh');
-  moonBtn.src = 'img/moon.png';
+  moonBtn.src = 'icon/moon.png';
   moonBtn.setAttribute('data-mood','moon');
  }
 };
@@ -340,7 +347,7 @@ function renderDetailsCountry(event) {
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
   container.innerHTML = "";
   userAccess.classList.add("hidden");
-  container.style.paddingTop = "4rem";
+  container.style.paddingTop = "1rem";
   userSearch.value = "";
   getOneCountry(editFindCountry);
 }
