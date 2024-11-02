@@ -134,6 +134,7 @@ body {
   cursor: pointer;
   padding: 0.4rem;
    margin-left: 2rem;
+   margin-top: 4rem;
  }
 .getchild {
   cursor: pointer;
@@ -164,6 +165,9 @@ width: 80%;
 }
 .name-country-detail{
 margin-bottom: 2.2rem;
+}
+.container-space{
+  padding-top: 4rem;
 }
 @media only screen and (min-width: 375px) and (max-width: 728px) {
   .name-country-detail{
@@ -216,24 +220,28 @@ margin-bottom: 2.2rem;
     height: 12rem;
   }
 }
-@media only screen and (min-width: 729px) and (max-width: 768px) {
+@media only screen and (min-width: 729px) and (max-width: 992px) {
   .input-search {
-    width: 7rem;
+    width: 10rem;
+  }
+  .info-country{
+    margin: 1rem;
   }
   .main-container {
     padding-top: 4rem;
   }
   .back-btn {
-    margin-top: 1rem;
+    margin-top: 4rem;
   }
 
 }
-@media only screen and (min-width: 769px) and (max-width: 1500px) {
+@media only screen and (min-width: 993px) and (max-width: 1500px) {
   .main-container {
     display: flex;
     justify-content: center;
     padding-left: 1rem;
     padding-right: 1rem;
+    /* padding-top: 4rem; */
   }
   .input-search {
     width: 11rem;

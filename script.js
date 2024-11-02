@@ -175,16 +175,6 @@ const countryDetails = function (data) {
   nameBorder2.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
   nameBorder2.textContent = `${data.borders[1]}`;
   infoCountrySection3.append(nameBorder2);
-  // if (!data.borders[3]) return;
-  // const nameBorder3 = document.createElement("div");
-  // nameBorder3.style.display = 'inline';
-  // nameBorder3.style.width = `max-content`;
-  // nameBorder3.style.backgroundColor = 'var(--color-elements)';
-  // nameBorder3.style.marginRight = '1rem';
-  // nameBorder3.style.boxShadow = 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px rgba(0, 0, 0, 0.3) 0px 8px 16px -8px';
-  // nameBorder3.style.padding = `0.4rem`;
-  // nameBorder3.textContent = `${data.borders[2]}`;
-  // infoCountrySection3.append(nameBorder3);
 };
 
 //handelError
@@ -206,7 +196,7 @@ const getCountrysFromRegion = async function (region) {
     handelError();
   }
 };
-
+getCountrysFromRegion('asia');
 //display items fillter
 fillterBtn.addEventListener("mouseover", function () {
   optionsFillter.classList.toggle("hidden");
@@ -236,12 +226,16 @@ const getAllCountries = async function () {
     allCountries = data;
     container.innerHTML = '';
     data.forEach(i => createCard(i));
-    console.log(allCountries);
+    console.log(data);
+    
+    countryDataInScreen = data;
+    // console.log(countryDataInScreen);
+    // console.log(allCountries);
   } catch (err) {
     handelError();
   }
 };
-getAllCountries();
+// getAllCountries();
 
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
@@ -290,6 +284,7 @@ userSearch.addEventListener("keyup", function (e) {
     countryDataInScreen = [];
   }
 });
+
 //go back
 goBack.addEventListener("click", function (e) {
   container.innerHTML = "";
@@ -307,7 +302,7 @@ optionsSort.addEventListener("click", function (e) {
     });
     container.innerHTML = "";
     countryDataInScreen = [];
-    sortName.forEach(i =>createCard(i));
+    sortName.forEach(i => createCard(i));
   }
   if (e.target.textContent === "Population") {
     let sortPopulation = countryDataInScreen.sort(
@@ -323,6 +318,12 @@ optionsSort.addEventListener("click", function (e) {
     countryDataInScreen = [];
     sortArea.forEach(i =>createCard(i));
   }
+  // if (e.target.textContent === "All") {
+  //   let sortAll = countryDataInScreen.sort((a, b) => b.area - a.area);
+  //   container.innerHTML = "";
+  //   countryDataInScreen = [];
+  //   sortAll.forEach(i => createCard(i));
+  // }
 });
 
 //light and dark
@@ -347,7 +348,7 @@ function renderDetailsCountry(event) {
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
   container.innerHTML = "";
   userAccess.classList.add("hidden");
-  container.style.paddingTop = "1rem";
+  container.style.paddingTop = "2rem";
   userSearch.value = "";
   getOneCountry(editFindCountry);
 }
@@ -355,7 +356,8 @@ function renderDetailsCountry(event) {
 function goToHome() {
   container.innerHTML = "";
   goBack.classList.add("hidden");
-  container.style.paddingTop = "0.5rem";
+  // container.style.paddingTop = "0.5rem";
+  // .classList.add('container-space');
   userAccess.classList.remove("hidden");
  countryDataInScreen.forEach(i => createCard(i));
 }
