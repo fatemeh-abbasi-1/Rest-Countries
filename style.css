@@ -62,9 +62,42 @@ body {
   display: flex;
   margin-top: 0.3rem;
 }
-#sort-container {
+.sort-title{
+  position: relative;
+  top: 0.8rem;
   width: 6rem;
-  margin-right: 1rem;
+  margin-top: 2rem;
+  margin-right: 1.5rem;
+  background-color: var(--color-elements);
+ padding: 0.5rem 1.4rem;
+ 
+}
+.sort-title ul{
+  display: none;
+  position: absolute;
+  left: 0;
+}
+.sort-title:hover ul{
+  display: flex;
+  flex-direction: column;
+}
+.filter-title{
+  position: relative;
+  top: 0.8rem;
+  width: 8rem;
+  margin-top: 2rem;
+  margin-right: 1.5rem;
+  background-color: var(--color-elements);
+ padding: 0.5rem;
+}
+.filter-title ul{
+  display: none;
+  position: absolute;
+  left: 0;
+}
+.filter-title:hover ul{
+  display: flex;
+  flex-direction: column;
 }
 .sort {
   background-color: var(--color-elements);
@@ -75,6 +108,7 @@ body {
   padding: 0.3rem;
   padding-left: 0.8rem;
   cursor: pointer;
+  width: 6rem;
 }
 .fillter {
   background-color: var(--color-elements);
@@ -85,26 +119,6 @@ body {
   padding-left: 0.8rem;
   width: 8rem;
   z-index: 100;
-  cursor: pointer;
-}
-.title-access-sort {
-  width: 6rem;
-  margin-bottom: 0.4rem;
-  margin-right: 1.5rem;
-  height: 1.8rem;
-  background-color: var(--color-elements);
-  padding-left: 0.5rem;
-  padding-top: 0.5rem;
-  height: 2.4rem;
-}
-.title-access-fillter {
-  width: 8rem;
-  margin-right: 1.5rem;
-  height: 1.8rem;
-  background-color: var(--color-elements);
-  padding-left: 0.5rem;
-  padding-top: 0.5rem;
-  height: 2.4rem;
   cursor: pointer;
 }
 .hidden {
@@ -293,9 +307,6 @@ margin-bottom: 2.2rem;
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  /* .input-search {
-    width: 11rem;
-  } */
   .getchild {
     margin-right: 1rem;
     margin-left: 2rem;
@@ -304,4 +315,5 @@ margin-bottom: 2.2rem;
   .back-btn {
     margin-top: 4rem;
   }
-};
+}
+

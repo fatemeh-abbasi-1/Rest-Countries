@@ -1,7 +1,5 @@
 "use strict";
 const container = document.querySelector(".main-container");
-const fillterBtn = document.querySelector(".title-access-fillter");
-const sortBtn = document.querySelector(".title-access-sort");
 const optionsFillter = document.querySelector(".fillter");
 const optionsSort = document.querySelector(".sort");
 const goBack = document.querySelector(".back");
@@ -68,7 +66,7 @@ const createCard = function (data) {
   region.textContent = `Region: ${data.region}`;
   infoCountryText.append(region);
   const capital = document.createElement("p");
-  capital.textContent = `Capital: ${data.capital}`;
+  capital.textContent = `Capital: ${data.capital[0]}`;
   infoCountryText.append(capital);
 };
 
@@ -195,25 +193,7 @@ const getCountrysFromRegion = async function (region) {
   }
 };
 
-
 getCountrysFromRegion("asia");
-//display items fillter
-fillterBtn.addEventListener("mouseover", function () {
-  optionsFillter.classList.toggle("hidden");
-});
-//hidden items fillter
-optionsFillter.addEventListener("mouseleave", function () {
-  optionsFillter.classList.add("hidden");
-});
-//display option sort
-sortBtn.addEventListener("mouseover", function () {
-  optionsSort.classList.toggle("hidden");
-  optionsFillter.classList.add("hidden");
-});
-//hidden items sort
-optionsSort.addEventListener("mouseleave", function () {
-  optionsSort.classList.add("hidden");
-});
 
 //all country
 const getAllCountries = async function () {
@@ -285,14 +265,6 @@ userSearch.addEventListener("keyup", function (e) {
   }
 });
 
-//go back
-goBack.addEventListener("click", function (e) {
-  container.innerHTML = "";
-  getCountrysFromRegion("america");
-  userSearch.value = "";
-  goBack.classList.add("hidden");
-});
-
 //sort
 optionsSort.addEventListener("click", function (e) {
   if (e.target.textContent === "Name") {
@@ -343,7 +315,6 @@ function renderDetailsCountry(event) {
   container.innerHTML = "";
   userAccess.classList.add("hidden");
   container.style.paddingTop = "2rem";
-  userSearch.value = "";
   getOneCountry(editFindCountry);
 }
 //go to home
@@ -351,7 +322,18 @@ function goToHome() {
   container.innerHTML = "";
   goBack.classList.add("hidden");
   userAccess.classList.remove("hidden");
-  countryDataInScreen.forEach((i) => createCard(i));
-}
+  const searchValue = userSearch.value;
+  console.log(searchValue);
+  const editUserSearchValue = searchValue.slice(0, 1).toUpperCase() + searchValue.slice(1);
+  if(searchValue){
+  const find = allCountries.filter((c) => c.name.common.includes(editUserSearchValue));
+  console.log(find);
+  find.forEach(c => createCard(c));
+  userSearch.focus();
+  }
+  if(!searchValue){
+    countryDataInScreen.forEach((i) => createCard(i));
+  }
+};
 
 //end😍🤞
