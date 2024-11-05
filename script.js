@@ -8,10 +8,11 @@ const getChild = document.querySelector(".getchild");
 const userAccess = document.querySelector(".user-access");
 const lightAndDarkBtn = document.querySelector(".light-dark-icon");
 const notFindCountry = document.querySelector(".show-error");
-const header = document.querySelector(".header");
+// const header = document.querySelector(".header");
 let userSearch = document.querySelector(".input-search");
 let allCountries;
 let countryDataInScreen = [];
+let countryDataInScreen2 = [];
 
 
 //header
@@ -19,7 +20,6 @@ const body = document.querySelector("body");
 const headerMain = document.createElement("div");
 body.prepend(headerMain);
 headerMain.classList.add("header");
-headerMain.style.width = "100%";
 headerMain.style.height = "3.5rem";
 headerMain.style.backgroundColor = "var(--color-elements)";
 const question = document.createElement("h2");
@@ -173,8 +173,8 @@ const countryDetails = function (data) {
 
 //handelError
 function handelError() {
-  header.classList.add("hidden");
-  userAccess.classList.add("hidden");
+  // document.querySelector('.header').classList.add("hidden");
+  // userAccess.classList.add("hidden");
   const titleErr = document.createElement("h4");
   titleErr.textContent = "Something went wrong, please try again!";
   container.append(titleErr);
@@ -187,13 +187,15 @@ const getCountrysFromRegion = async function (region) {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     if (!res.ok) throw new Error(`${res.status}`);
     const data = await res.json();
+    countryDataInScreen2 = data;
     data.forEach((i) => createCard(i));
   } catch (err) {
+    console.log(err);
     handelError();
   }
 };
 
-getCountrysFromRegion("asia");
+getCountrysFromRegion('europe');
 
 //all country
 const getAllCountries = async function () {
@@ -210,7 +212,14 @@ getAllCountries();
 
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
+  const allElementSectionFilter = document.querySelector('.fillter').children;
+  for (let i = 0; i < allElementSectionFilter.length; i++) {
+    allElementSectionFilter[i].classList.remove('bg-filter-sort');
+  };
+  const element = e.target;
+  element.classList.add('bg-filter-sort');
   countryDataInScreen = [];
+  countryDataInScreen2 = [];
   const regionName = e.target.textContent;
   const editRegionName = regionName[0].toLowerCase() + regionName.slice(1);
   console.log(editRegionName);
@@ -247,7 +256,7 @@ userSearch.addEventListener("keyup", function (e) {
   let userSearchValue = userSearch.value;
   const editUserSearchValue =
     userSearchValue.slice(0, 1).toUpperCase() + userSearch.value.slice(1);
-  const findCountry = allCountries.filter((c, i) =>
+  const findCountry = countryDataInScreen2.filter((c, i) =>
     c.name.common.includes(editUserSearchValue)
   );
   if (findCountry.length === 0) {
@@ -267,6 +276,12 @@ userSearch.addEventListener("keyup", function (e) {
 
 //sort
 optionsSort.addEventListener("click", function (e) {
+  const allElementSectionSort = document.querySelector('.sort').children;
+  for (let i = 0; i < allElementSectionSort.length; i++) {
+    allElementSectionSort[i].classList.remove('bg-filter-sort');
+  };
+  const element = e.target;
+  element.classList.add('bg-filter-sort');
   if (e.target.textContent === "Name") {
     let sortName = countryDataInScreen.sort((a, b) => {
       if (a.name.common > b.name.common) return 1;
@@ -309,6 +324,8 @@ function handeleLightAndDark(event) {
 
 // page details
 function renderDetailsCountry(event) {
+  console.log(event.target.offsetTop);
+  
   const findCountry =
     event.target.closest(".getchild").children[1].children[0].innerHTML;
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
@@ -323,7 +340,6 @@ function goToHome() {
   goBack.classList.add("hidden");
   userAccess.classList.remove("hidden");
   const searchValue = userSearch.value;
-  console.log(searchValue);
   const editUserSearchValue = searchValue.slice(0, 1).toUpperCase() + searchValue.slice(1);
   if(searchValue){
   const find = allCountries.filter((c) => c.name.common.includes(editUserSearchValue));

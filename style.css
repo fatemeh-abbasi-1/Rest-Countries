@@ -2,11 +2,13 @@
   --background-color: hsl(0, 33%, 97%);
   --color-elements: hsl(0, 0%, 100%);
   --color-text: hsl(200, 15%, 8%);
+  --bg-option-sort-filter : hsl(0, 7%, 92%);
 }
 .dark-mode {
   --background-color: hsl(207, 26%, 17%);
   --color-elements: hsl(209, 23%, 22%);
   --color-text: hsl(0, 0%, 100%);
+  --bg-option-sort-filter : hsl(210, 23%, 17%);
 }
 * {
   padding: 0;
@@ -25,9 +27,10 @@ body {
   font-size: 0.9rem;
 }
 .header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 3rem;
+width: 100%;
+padding: 1rem 3rem;
+display: flex;
+justify-content: space-between;
 }
 .info-country {
   background-color: var(--color-elements);
@@ -88,7 +91,7 @@ body {
   margin-top: 2rem;
   margin-right: 1.5rem;
   background-color: var(--color-elements);
- padding: 0.5rem;
+  padding: 0.5rem;
 }
 .filter-title ul{
   display: none;
@@ -120,6 +123,7 @@ body {
   width: 8rem;
   z-index: 100;
   cursor: pointer;
+  margin-top: 0.3rem;
 }
 .hidden {
   display: none;
@@ -150,6 +154,9 @@ body {
   padding: 0.4rem;
    margin-left: 2rem;
    margin-top: 4rem;
+ }
+ .bg-filter-sort{
+  background-color:var(--bg-option-sort-filter);
  }
 .getchild {
   cursor: pointer;
