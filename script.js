@@ -8,7 +8,6 @@ const getChild = document.querySelector(".getchild");
 const userAccess = document.querySelector(".user-access");
 const lightAndDarkBtn = document.querySelector(".light-dark-icon");
 const notFindCountry = document.querySelector(".show-error");
-// const header = document.querySelector(".header");
 let userSearch = document.querySelector(".input-search");
 let allCountries;
 let countryDataInScreen = [];
@@ -66,7 +65,7 @@ const createCard = function (data) {
   region.textContent = `Region: ${data.region}`;
   infoCountryText.append(region);
   const capital = document.createElement("p");
-  capital.textContent = `Capital: ${data.capital[0]}`;
+  capital.textContent = `Capital: ${data.capital}`;
   infoCountryText.append(capital);
 };
 
@@ -173,8 +172,8 @@ const countryDetails = function (data) {
 
 //handelError
 function handelError() {
-  // document.querySelector('.header').classList.add("hidden");
-  // userAccess.classList.add("hidden");
+  document.querySelector('.header').classList.add("hidden");
+  userAccess.classList.add("hidden");
   const titleErr = document.createElement("h4");
   titleErr.textContent = "Something went wrong, please try again!";
   container.append(titleErr);
@@ -194,8 +193,8 @@ const getCountrysFromRegion = async function (region) {
     handelError();
   }
 };
-
 getCountrysFromRegion('oceania');
+
 
 //all country
 const getAllCountries = async function () {
@@ -205,11 +204,13 @@ const getAllCountries = async function () {
     const data = await res.json();
     countryDataInScreen2 = data;
     allCountries = data;
+    data.forEach((i) => createCard(i));
   } catch (err) {
+    console.log(err);
     handelError();
   }
 };
-getAllCountries();
+
 
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
@@ -226,20 +227,14 @@ optionsFillter.addEventListener("click", function (e) {
   console.log(editRegionName);
   container.textContent = "";
   if (editRegionName === "all") {
-  console.log('kkkkjjjjjjjjjjjjjjjjj');
-    container.textContent = '';
-    countryDataInScreen = allCountries;
-    // countryDataInScreen2 = allCountries;
-    console.log(allCountries);
-    for (let i = 0 ; i < countryDataInScreen.length ; i++) {
-      if(!allCountries.capital){
-        continue;
-      }
-      createCard(allCountries[i]);
-    };
+    getAllCountries();
     return;
     }
-     getCountrysFromRegion(editRegionName);
+  if(editRegionName === 'asia' || editRegionName === 'africa' || 
+    editRegionName === 'america' || editRegionName === 'europe' 
+    ||editRegionName === 'oceania' ){
+    getCountrysFromRegion(editRegionName);
+    }  
 });
 
 //get 1 contry info
@@ -313,7 +308,6 @@ optionsSort.addEventListener("click", function (e) {
 //light and dark
 function handeleLightAndDark(event) {
   document.querySelector("html").classList.toggle("dark-mode");
-  console.log(event.target.dataset.mood);
   if (event.target.dataset.mood === "moon") {
     moonBtn.src = "icon/sun.png";
     moonBtn.setAttribute("data-mood", "sun");
@@ -328,8 +322,6 @@ function handeleLightAndDark(event) {
 // page details
 function renderDetailsCountry(event) {
   spaceInfoCountryFromTop = event.target.offsetTop;
-  console.log(spaceInfoCountryFromTop);
-
   const findCountry =
     event.target.closest(".getchild").children[1].children[0].innerHTML;
   const editFindCountry = findCountry[0].toLowerCase() + findCountry.slice(1);
@@ -337,7 +329,8 @@ function renderDetailsCountry(event) {
   userAccess.classList.add("hidden");
   container.style.paddingTop = "2rem";
   getOneCountry(editFindCountry);
-}
+};
+
 //go to home
 function goToHome(event) {
   container.innerHTML = "";
