@@ -204,7 +204,12 @@ const getAllCountries = async function () {
     const data = await res.json();
     countryDataInScreen2 = data;
     allCountries = data;
-    data.forEach((i) => createCard(i));
+    for (let i = 0; i < data.length; i++) {
+      if(i === 21 || i === 37){
+        continue;
+      }
+     createCard(data[i]);
+    }
   } catch (err) {
     console.log(err);
     handelError();

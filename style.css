@@ -50,6 +50,7 @@ justify-content: space-between;
   border: none;
   margin-left: 1rem;
   background-color: var(--color-elements);
+  color:var(--color-text);
 }
 .search-back {
   display: flex;
