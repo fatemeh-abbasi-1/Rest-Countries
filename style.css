@@ -226,15 +226,16 @@ margin-bottom: 2.2rem;
     width: 90%;
   }
   .input-search {
-    width: 15rem ;
+    width: 17rem ;
     font-size: 0.8rem;
     height: 2.4rem;
     margin-bottom: 1rem;
   }
   .user-access {
-    height: 8rem;
+    height: 6rem;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 2rem;
   }
   .back {
     margin-top: -0.3rem;
@@ -252,6 +253,9 @@ margin-bottom: 2.2rem;
     width:80%;
     height: 12rem;
     margin-bottom: 5%;
+  }
+  .filter-title{
+    margin-right: 0;
   }
 }
 @media only screen and (min-width: 481px) and (max-width: 728px) {
@@ -280,9 +284,10 @@ margin-bottom: 2.2rem;
       width: 18rem;
     }
     .user-access {
-      height: 8rem;
+      height: 5rem;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 2rem;
     }
 }
 @media only screen and (min-width: 729px) and (max-width: 992px) {
