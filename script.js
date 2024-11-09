@@ -38,10 +38,10 @@ const createCard = function (data) {
   countryDataInScreen.push(data);
   const infoCounty = document.createElement("div");
   container.append(infoCounty);
-  infoCounty.setAttribute("onclick", "renderDetailsCountry(event)");
+  infoCounty.addEventListener('click',renderDetailsCountry);
   infoCounty.classList.add("getchild");
   infoCounty.style.width = "15rem";
-  infoCounty.style.height = "18rem";
+  infoCounty.classList.add('info-country2');
   infoCounty.style.marginBottom = "1.4rem";
   infoCounty.classList.add("info-country");
   const imgFlag = document.createElement("img");
@@ -178,6 +178,7 @@ function handelError() {
   titleErr.textContent = "Something went wrong, please try again!";
   container.append(titleErr);
 };
+console.log(countryDataInScreen);
 
 
 //get countries from region
@@ -235,11 +236,8 @@ optionsFillter.addEventListener("click", function (e) {
     getAllCountries();
     return;
     }
-  if(editRegionName === 'asia' || editRegionName === 'africa' || 
-    editRegionName === 'america' || editRegionName === 'europe' 
-    ||editRegionName === 'oceania' ){
     getCountrysFromRegion(editRegionName);
-    }  
+     
 });
 
 //get 1 contry info
