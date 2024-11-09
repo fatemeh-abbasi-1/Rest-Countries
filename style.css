@@ -196,7 +196,7 @@ margin-bottom: 2.2rem;
 .info-country2{
   height: 18rem;
 }
- @media only and (max-width: 1500px) {
+ @media only screen and (max-width: 1500px) {
   .main-container {
     display: flex;
     justify-content: center;
