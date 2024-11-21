@@ -38,10 +38,10 @@ const createCard = function (data) {
   countryDataInScreen.push(data);
   const infoCounty = document.createElement("div");
   container.append(infoCounty);
-  infoCounty.addEventListener('click',renderDetailsCountry);
+  infoCounty.addEventListener("click", renderDetailsCountry);
   infoCounty.classList.add("getchild");
   infoCounty.style.width = "15rem";
-  infoCounty.classList.add('info-country2');
+  infoCounty.classList.add("info-country2");
   infoCounty.style.marginBottom = "1.4rem";
   infoCounty.classList.add("info-country");
   const imgFlag = document.createElement("img");
@@ -80,7 +80,7 @@ const countryDetails = function (data) {
   const containerBtnBack = document.createElement("div");
   containerBtnBack.style.width = "100%";
   containerBtnBack.style.height = "3rem";
-  containerBtnBack.classList.add('btn-container');
+  containerBtnBack.classList.add("btn-container");
   containerDetail.append(containerBtnBack);
   const textBack = document.createElement("p");
   textBack.textContent = "← back";
@@ -172,14 +172,13 @@ const countryDetails = function (data) {
 
 //handelError
 function handelError() {
-  document.querySelector('.header').classList.add("hidden");
+  document.querySelector(".header").classList.add("hidden");
   userAccess.classList.add("hidden");
   const titleErr = document.createElement("h4");
   titleErr.textContent = "Something went wrong, please try again!";
   container.append(titleErr);
-};
+}
 console.log(countryDataInScreen);
-
 
 //get countries from region
 const getCountrysFromRegion = async function (region) {
@@ -194,8 +193,7 @@ const getCountrysFromRegion = async function (region) {
     handelError();
   }
 };
-getCountrysFromRegion('oceania');
-
+getCountrysFromRegion("oceania");
 
 //all country
 const getAllCountries = async function () {
@@ -206,10 +204,10 @@ const getAllCountries = async function () {
     countryDataInScreen2 = data;
     allCountries = data;
     for (let i = 0; i < data.length; i++) {
-      if(i === 21 || i === 37){
+      if (i === 21 || i === 37) {
         continue;
       }
-     createCard(data[i]);
+      createCard(data[i]);
     }
   } catch (err) {
     console.log(err);
@@ -217,15 +215,14 @@ const getAllCountries = async function () {
   }
 };
 
-
 //section fillter
 optionsFillter.addEventListener("click", function (e) {
-  const allElementSectionFilter = document.querySelector('.fillter').children;
+  const allElementSectionFilter = document.querySelector(".fillter").children;
   for (let i = 0; i < allElementSectionFilter.length; i++) {
-    allElementSectionFilter[i].classList.remove('bg-filter-sort');
-  };
+    allElementSectionFilter[i].classList.remove("bg-filter-sort");
+  }
   const element = e.target;
-  element.classList.add('bg-filter-sort');
+  element.classList.add("bg-filter-sort");
   countryDataInScreen = [];
   countryDataInScreen2 = [];
   const regionName = e.target.textContent;
@@ -235,9 +232,8 @@ optionsFillter.addEventListener("click", function (e) {
   if (editRegionName === "all") {
     getAllCountries();
     return;
-    }
-    getCountrysFromRegion(editRegionName);
-     
+  }
+  getCountrysFromRegion(editRegionName);
 });
 
 //get 1 contry info
@@ -277,12 +273,12 @@ userSearch.addEventListener("keyup", function (e) {
 
 //sort
 optionsSort.addEventListener("click", function (e) {
-  const allElementSectionSort = document.querySelector('.sort').children;
+  const allElementSectionSort = document.querySelector(".sort").children;
   for (let i = 0; i < allElementSectionSort.length; i++) {
-    allElementSectionSort[i].classList.remove('bg-filter-sort');
-  };
+    allElementSectionSort[i].classList.remove("bg-filter-sort");
+  }
   const element = e.target;
-  element.classList.add('bg-filter-sort');
+  element.classList.add("bg-filter-sort");
   if (e.target.textContent === "Name") {
     let sortName = countryDataInScreen.sort((a, b) => {
       if (a.name.common > b.name.common) return 1;
@@ -332,7 +328,7 @@ function renderDetailsCountry(event) {
   userAccess.classList.add("hidden");
   container.style.paddingTop = "2rem";
   getOneCountry(editFindCountry);
-};
+}
 
 //go to home
 function goToHome(event) {
@@ -340,23 +336,26 @@ function goToHome(event) {
   goBack.classList.add("hidden");
   userAccess.classList.remove("hidden");
   const searchValue = userSearch.value;
-  const editUserSearchValue = searchValue.slice(0, 1).toUpperCase() + searchValue.slice(1);
-  if(searchValue){
-  const find = countryDataInScreen2.filter((c) => c.name.common.includes(editUserSearchValue));
-  console.log(find);
-  find.forEach(c => createCard(c));
-  userSearch.focus();
+  const editUserSearchValue =
+    searchValue.slice(0, 1).toUpperCase() + searchValue.slice(1);
+  if (searchValue) {
+    const find = countryDataInScreen2.filter((c) =>
+      c.name.common.includes(editUserSearchValue)
+    );
+    console.log(find);
+    find.forEach((c) => createCard(c));
+    userSearch.focus();
   }
-  if(!searchValue){
+  if (!searchValue) {
     countryDataInScreen2.forEach((i) => {
       createCard(i);
     });
   }
-  if(spaceInfoCountryFromTop < 500 ){
-  return;
+  if (spaceInfoCountryFromTop < 500) {
+    return;
   }
-   window.scrollTo(100 , spaceInfoCountryFromTop - 100);
-   spaceInfoCountryFromTop = 0;
-};
+  window.scrollTo(100, spaceInfoCountryFromTop - 100);
+  spaceInfoCountryFromTop = 0;
+}
 
 //end😍🤞
